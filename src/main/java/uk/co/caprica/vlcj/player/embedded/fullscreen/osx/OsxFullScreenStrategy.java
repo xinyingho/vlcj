@@ -19,10 +19,6 @@
 
 package uk.co.caprica.vlcj.player.embedded.fullscreen.osx;
 
-import com.apple.eawt.AppEvent.FullScreenEvent;
-import com.apple.eawt.Application;
-import com.apple.eawt.FullScreenAdapter;
-import com.apple.eawt.FullScreenUtilities;
 import uk.co.caprica.vlcj.player.embedded.fullscreen.FullScreenStrategy;
 
 import java.awt.*;
@@ -45,8 +41,6 @@ public class OsxFullScreenStrategy implements FullScreenStrategy {
     public OsxFullScreenStrategy(Window window) {
         if (window != null) {
             this.window = window;
-            FullScreenUtilities.addFullScreenListenerTo(window, new FullScreenHandler());
-            FullScreenUtilities.setWindowCanFullScreen(window, true);
         }
         else {
             throw new IllegalArgumentException("Window must not be null");
@@ -55,12 +49,12 @@ public class OsxFullScreenStrategy implements FullScreenStrategy {
 
     @Override
     public void enterFullScreenMode() {
-        Application.getApplication().requestToggleFullScreen(window);
+        
     }
 
     @Override
     public void exitFullScreenMode() {
-        Application.getApplication().requestToggleFullScreen(window);
+        
     }
 
     @Override
@@ -84,30 +78,6 @@ public class OsxFullScreenStrategy implements FullScreenStrategy {
      * restore other on-screen components.
      */
     protected void onAfterExitFullScreenMode() {
-    }
-
-    private class FullScreenHandler extends FullScreenAdapter {
-
-        @Override
-        public void windowEnteringFullScreen(FullScreenEvent event) {
-            OsxFullScreenStrategy.this.isFullScreenMode = true;
-            onBeforeEnterFullScreenMode();
-        }
-
-        @Override
-        public void windowEnteredFullScreen(FullScreenEvent event) {
-        }
-
-        @Override
-        public void windowExitingFullScreen(FullScreenEvent event) {
-            OsxFullScreenStrategy.this.isFullScreenMode = false;
-        }
-
-        @Override
-        public void windowExitedFullScreen(FullScreenEvent event) {
-            onAfterExitFullScreenMode();
-        }
-
     }
 
 }

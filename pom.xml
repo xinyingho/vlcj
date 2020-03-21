@@ -18,7 +18,7 @@
 
     <groupId>uk.co.caprica</groupId>
     <artifactId>vlcj</artifactId>
-    <version>4.4.1-SNAPSHOT</version>
+    <version>4.4.0-negatron</version>
 
     <name>vlcj</name>
     <description>Java Framework for the vlc Media Player.</description>
@@ -79,7 +79,6 @@
     <properties>
         <module.name>uk.co.caprica.vlcj</module.name>
         <vlcjNatives.version>4.1.0</vlcjNatives.version>
-        <vlcjOsxStubs.version>1.0.0</vlcjOsxStubs.version>
     </properties>
 
     <dependencies>
@@ -87,12 +86,6 @@
             <groupId>uk.co.caprica</groupId>
             <artifactId>vlcj-natives</artifactId>
             <version>${vlcjNatives.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>uk.co.caprica</groupId>
-            <artifactId>vlcj-osx-stubs</artifactId>
-            <version>${vlcjOsxStubs.version}</version>
-            <scope>provided</scope>
         </dependency>
     </dependencies>
 
@@ -137,18 +130,26 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.0</version>
+                <version>3.8.1</version>
                 <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
+                    <source>11</source>
+                    <target>11</target>
                     <encoding>UTF-8</encoding>
                     <compilerArgument>-Xlint:serial</compilerArgument>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M4</version>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>3.1.1</version>
+                <version>3.2.0</version>
                 <configuration>
                     <archive>
                         <manifestEntries>
@@ -179,7 +180,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.0.1</version>
+                <version>3.2.1</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -192,34 +193,8 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.0.1</version>
-                <configuration>
-                    <author>true</author>
-                    <charset>UTF-8</charset>
-                    <doctitle>${project.name} ${project.version} API Documentation</doctitle>
-                    <docfilessubdirs>true</docfilessubdirs>
-                    <encoding>UTF-8</encoding>
-                    <footer>(C)2019 Caprica Software Limited</footer>
-                    <show>public</show>
-                    <quiet>true</quiet>
-                    <failOnError>true</failOnError>
-                    <additionalOptions>-html5</additionalOptions>
-                    <source>6</source>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>attach-javadocs</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>3.2.0</version>
                 <configuration>
                     <attach>false</attach>
                 </configuration>
@@ -262,7 +237,7 @@
             <plugin>
                 <artifactId>jdeb</artifactId>
                 <groupId>org.vafer</groupId>
-                <version>1.7</version>
+                <version>1.5</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -310,23 +285,9 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-gpg-plugin</artifactId>
-                <version>1.5</version>
-                <executions>
-                    <execution>
-                        <id>sign-artifacts</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>sign</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
                 <groupId>org.sonatype.plugins</groupId>
                 <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>1.6.7</version>
+                <version>1.6.8</version>
                 <extensions>true</extensions>
                 <configuration>
                     <serverId>ossrh</serverId>
@@ -337,7 +298,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
-                <version>2.5.3</version>
+                <version>3.0.0-M1</version>
                 <configuration>
                     <autoVersionSubmodules>true</autoVersionSubmodules>
                     <useReleaseProfile>false</useReleaseProfile>
