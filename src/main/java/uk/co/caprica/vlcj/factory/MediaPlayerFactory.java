@@ -64,15 +64,6 @@ import static uk.co.caprica.vlcj.binding.LibVlc.libvlc_release;
 public class MediaPlayerFactory {
 
     /**
-     * Custom one-time initialisation required for Linux.
-     */
-    static {
-        if (RuntimeUtil.isNix()) {
-            LinuxNativeInit.init();
-        }
-    }
-
-    /**
      * Native library instance.
      */
     protected final libvlc_instance_t libvlcInstance;
